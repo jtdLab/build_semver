@@ -10,6 +10,8 @@ Include the version of your package in our source code.
    ```yaml
    name: my_pkg
    version: 1.2.3
+   dependencies:
+     pub_semver: ^2.1.4
    dev_dependencies:
      build_runner: ^1.0.0
      build_semver: ^2.0.0
