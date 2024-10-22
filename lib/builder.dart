@@ -14,13 +14,13 @@ import 'package:pubspec_parse/pubspec_parse.dart';
 
 const _defaultOutput = 'lib/src/version.dart';
 
-Builder buildVersion([BuilderOptions? options]) =>
-    _VersionBuilder((options?.config['output'] as String?) ?? _defaultOutput);
+Builder buildSemver([BuilderOptions? options]) =>
+    _SemverBuilder((options?.config['output'] as String?) ?? _defaultOutput);
 
-class _VersionBuilder implements Builder {
+class _SemverBuilder implements Builder {
   final String output;
 
-  _VersionBuilder(this.output);
+  _SemverBuilder(this.output);
 
   @override
   Future<void> build(BuildStep buildStep) async {
@@ -43,7 +43,9 @@ class _VersionBuilder implements Builder {
 
     await buildStep.writeAsString(buildStep.allowedOutputs.single, '''
 // Generated code. Do not modify.
-const packageVersion = '${pubspec.version}';
+import 'package:pub_semver/pub_semver.dart';
+
+final packageVersion = Version.parse('${pubspec.version}');
 ''');
   }
 

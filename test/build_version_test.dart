@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:build/build.dart';
+import 'package:build_semver/builder.dart';
 import 'package:build_test/build_test.dart';
-import 'package:build_version/builder.dart';
 import 'package:checked_yaml/checked_yaml.dart';
 import 'package:test/test.dart';
 
@@ -12,7 +12,7 @@ void main() {
   test('no name provided', () async {
     expect(
       () => testBuilder(
-        buildVersion(),
+        buildSemver(),
         _createPackageStub({'version': '1.0.0'}),
       ),
       throwsA(_isParsedYamlException),
@@ -20,7 +20,7 @@ void main() {
   });
   test('no version provided', () async {
     expect(
-      () => testBuilder(buildVersion(), _createPackageStub({'name': 'pkg'})),
+      () => testBuilder(buildSemver(), _createPackageStub({'name': 'pkg'})),
       throwsA(
         const TypeMatcher<StateError>().having(
           (se) => se.message,
@@ -33,7 +33,7 @@ void main() {
   test('bad version provided', () async {
     expect(
       () => testBuilder(
-        buildVersion(),
+        buildSemver(),
         _createPackageStub({'name': 'pkg', 'version': 'not a version'}),
       ),
       throwsA(_isParsedYamlException),
@@ -41,12 +41,14 @@ void main() {
   });
   test('valid input', () async {
     await testBuilder(
-      buildVersion(),
+      buildSemver(),
       _createPackageStub({'name': 'pkg', 'version': '1.0.0'}),
       outputs: {
         'pkg|lib/src/version.dart': r'''
 // Generated code. Do not modify.
-const packageVersion = '1.0.0';
+import 'package:pub_semver/pub_semver.dart';
+
+final packageVersion = Version.parse('1.0.0');
 ''',
       },
     );
@@ -54,12 +56,14 @@ const packageVersion = '1.0.0';
 
   test('valid input, custom output location', () async {
     await testBuilder(
-      buildVersion(const BuilderOptions({'output': 'bin/version.dart'})),
+      buildSemver(const BuilderOptions({'output': 'bin/version.dart'})),
       _createPackageStub({'name': 'pkg', 'version': '1.0.0'}),
       outputs: {
         'pkg|bin/version.dart': r'''
 // Generated code. Do not modify.
-const packageVersion = '1.0.0';
+import 'package:pub_semver/pub_semver.dart';
+
+final packageVersion = Version.parse('1.0.0');
 ''',
       },
     );

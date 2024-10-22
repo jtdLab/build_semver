@@ -1,7 +1,7 @@
-name: build_version
+name: build_semver
 description: A builder for extracting a package version into code.
-version: 2.1.2-wip
-repository: https://github.com/kevmoo/build_version
+version: 1.0.0
+repository: https://github.com/jtdLab/build_semver
 
 environment:
   sdk: ^3.4.0

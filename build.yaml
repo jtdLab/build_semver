@@ -2,13 +2,13 @@
 targets:
   $default:
     builders:
-      build_version:
+      build_semver:
         enabled: true
 
 builders:
-  build_version:
-    import: "package:build_version/builder.dart"
-    builder_factories: ["buildVersion"]
+  build_semver:
+    import: "package:build_semver/builder.dart"
+    builder_factories: ["buildSemver"]
     build_extensions: {"pubspec.yaml": ["lib/src/version.dart"]}
     defaults:
       options:

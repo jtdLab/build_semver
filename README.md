@@ -1,10 +1,10 @@
-[![CI](https://github.com/kevmoo/build_version/workflows/CI/badge.svg?branch=master)](https://github.com/kevmoo/build_version/actions?query=workflow%3ACI+branch%3Amaster)
-[![Pub Package](https://img.shields.io/pub/v/build_version.svg)](https://pub.dev/packages/build_version)
-[![package publisher](https://img.shields.io/pub/publisher/build_version.svg)](https://pub.dev/packages/build_version/publisher)
+[![CI](https://github.com/jtdLab/build_semver/workflows/CI/badge.svg?branch=master)](https://github.com/jtdLab/build_semver/actions?query=workflow%3ACI+branch%3Amaster)
+[![Pub Package](https://img.shields.io/pub/v/build_semver.svg)](https://pub.dev/packages/build_semver)
+[![package publisher](https://img.shields.io/pub/publisher/build_semver.svg)](https://pub.dev/packages/build_semver/publisher)
 
 Include the version of your package in our source code.
 
-1. Add `build_version` to `pubspec.yaml`. Also make sure there is a `version`
+1. Add `build_semver` to `pubspec.yaml`. Also make sure there is a `version`
    field.
 
    ```yaml
@@ -12,7 +12,7 @@ Include the version of your package in our source code.
    version: 1.2.3
    dev_dependencies:
      build_runner: ^1.0.0
-     build_version: ^2.0.0
+     build_semver: ^2.0.0
    ```
 
 2. Run a build.
@@ -25,7 +25,9 @@ Include the version of your package in our source code.
 
    ```dart
    // Generated code. Do not modify.
-   const packageVersion = '1.2.3';
+   import 'package:pub_semver/pub_semver.dart';
+
+   final packageVersion = Version.parse('1.2.3');
    ```
 
 To change the path of the generated file, create a
@@ -37,7 +39,7 @@ customized:
 targets:
   $default:
     builders:
-      build_version:
+      build_semver:
         options:
           output: lib/src/custom/path/to/version.dart
 ```
